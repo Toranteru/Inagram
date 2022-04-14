@@ -12,6 +12,7 @@ const uri = process.env.DB_URI;
 
 // Middleware
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Application routes

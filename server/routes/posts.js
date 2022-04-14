@@ -41,43 +41,77 @@ const connection = mongoose.connection;
 
 // Initialize GFS
 let gfs;
+let gfsBucket;
 
 connection.once('open', () => {
+  gfsBucket = new mongoose.mongo.GridFSBucket(connection.db, {
+    bucketName: 'posts'
+  });
   gfs = gridFsStream(connection.db, mongoose.mongo);
   // Specify the top level connection name
   gfs.collection('posts');
   console.log("MongoDB connection established successfully!");
 })
 
+// @route POST /submit
+// @desc Add a new post
+router.post('/submit', upload.single('image'), async (req, res) => {
+  const { title, caption } = req.body;
+  const { filename } = req.file;
+  const newPost = new Post({
+    title,
+    caption,
+    filename
+  });
+
+  newPost.save()
+  .then(() => res.json('A new post has been added!'))
+  .catch(err => res.status(400).json(`Error with message: ${err}`));
+});
+
 // @route GET /
-// @desc Retrieve all posts in the collection
+// @desc Retrieve all posts
 router.get('/', async (req, res) => {
   Post.find()
   .then(posts => res.json(posts))
   .catch(err => res.status(400).json(`Error with message: ${error}`));
 });
 
-// @route POST /submit
-// @desc Add a new post in the collection
-router.post('/submit', async (req, res) => {
-  // Destructuring
-  const { title, caption, date } = req.body;
-  const newPost = new Post({
-    title,
-    caption,
-    date
+// @route GET /files/:filename
+// @desc Get individual file
+router.get('/files/:filename', (req, res) => {
+  let target = req.params.filename;
+  gfs.files.findOne({ filename: target }, (err, file) => {
+    if (!file) {
+      return res.status(404).json({
+        err: `Unable to find file with filename ${target}`
+      }); 
+    }
+    return res.json(file);
   });
+})
 
-  newPost.save()
-  .then(() => res.json('A new post has been added!'))
-  .catch(err => res.status(400).json(`Error with message: ${error}`));
-});
-
-// @route POST /upload
-// @desc Add a new image in the collection
-// TODO: This is a test route, will depreciate later
-router.post('/upload', upload.single('file'), async (req, res) => {
-  res.json({ file: req.file });
-});
+// @route GET /image/:filename
+// @desc Display post image
+router.get('/image/:filename', (req, res) => {
+  let target = req.params.filename;
+  gfs.files.findOne({ filename: target }, (err, file) => {
+    if (!file) {
+      return res.status(404).json({
+        err: `Unable to find file with filename ${target}`
+      }); 
+    }
+    // Check if the file is an image
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+      // Read output to browser
+      const readStream = gfsBucket.openDownloadStreamByName(file.filename);
+      readStream.pipe(res);
+    } else {
+      return res.status(404).json({
+        err: 'Specified file is not an image'
+      })
+    }
+  });
+})
 
 module.exports = router;

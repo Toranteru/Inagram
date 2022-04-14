@@ -1,0 +1,28 @@
+.flex {
+  display: flex;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.modal {
+  width: 80vh;
+  height: 80vh;
+  border: 1px solid gray;
+  border-radius: 4px;
+
+  flex-direction: column;
+  gap: 10px;
+}
+
+.file-label {
+  font-weight: 600;
+  background-color: rgb(150, 150, 150);
+  color: white;
+
+  border-radius: 4px;
+  padding: 10px;
+}
