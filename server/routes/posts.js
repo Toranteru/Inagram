@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const crypto = require('crypto');
 
-// Modules for parsing files into chunks
+// Modules for parsing form data into chunks
 const multer = require('multer');
 const gridFsStorage = require('multer-gridfs-storage').GridFsStorage;
 const gridFsStream = require('gridfs-stream');

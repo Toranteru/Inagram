@@ -4,6 +4,32 @@
   font-family: 'Manrope', sans-serif;
 }
 
-html, body, div {
+html, body {
+  height: 100vh;
+}
+
+img {
   height: 100%;
+  width: auto;
+}
+
+/* Top level classes for all components */
+
+.wrapper {
+  height: 100vh;
+  gap: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.absolute {
+  position: absolute;
 }
