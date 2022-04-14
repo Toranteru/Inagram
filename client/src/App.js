@@ -1,10 +1,15 @@
 import React from 'react';
-import Post from './components/Post';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Post from './components/Post/Post';
+import Feed from './components/Feed/Feed'
 
 export default function App() {
   return (
-    <>
-      <Post />
-    </>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Post />}></Route>
+        <Route path='/posts' element={<Feed />}></Route>
+      </Routes>
+    </Router>
   )
 }

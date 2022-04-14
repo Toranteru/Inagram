@@ -5,7 +5,7 @@
 }
 
 html, body {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 img {
@@ -16,12 +16,13 @@ img {
 /* Top level classes for all components */
 
 .wrapper {
-  height: 100vh;
+  min-height: 100vh;
   gap: 10px;
 }
 
 .flex {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .center {

@@ -1,8 +1,10 @@
 import { combineReducers, createStore } from 'redux';
-import fileReducer from './fileReducer';
+import postReducer from './postReducer';
+import imageReducer from './imageReducer';
 
 const rootReducer = combineReducers({
-  fileSlice: fileReducer
+  postSlice: postReducer,
+  imageSlice: imageReducer
 });
 
 const store = createStore(rootReducer);
