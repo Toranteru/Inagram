@@ -74,20 +74,21 @@ router.post('/submit', upload.single('image'), async (req, res) => {
 router.get('/', async (req, res) => {
   Post.find()
   .then(posts => res.json(posts))
-  .catch(err => res.status(400).json(`Error with message: ${error}`));
+  .catch(err => res.status(400).json(`Error with message: ${err}`));
 });
 
-// @route GET /files/:filename
-// @desc Get individual file
-router.get('/files/:filename', (req, res) => {
+// @route GET /:filename
+// @desc Get post information associated with file
+router.get('/:filename', async (req, res) => {
   let target = req.params.filename;
-  gfs.files.findOne({ filename: target }, (err, file) => {
-    if (!file) {
+  Post.findOne({ filename: target })
+  .then((fileInfo) => {
+    if (!fileInfo) {
       return res.status(404).json({
-        err: `Unable to find file with filename ${target}`
-      }); 
+        err: `Unable to find file or file information with filename ${target}`
+      });
     }
-    return res.json(file);
+    return res.json(fileInfo);
   });
 })
 

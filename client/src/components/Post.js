@@ -11,7 +11,7 @@ export default function Post() {
       <div className='flex center modal'>
         <p>Upload photo and videos here</p>
         <input 
-          id="file-upload"
+          id="image"
           type="file"
           style={{ display: 'none' }}
           onChange={handleFile}
