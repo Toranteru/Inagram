@@ -57,6 +57,8 @@ textarea {
 }
 
 .title {
+  position: absolute;
+  top: 0px;
   font-size: 24px;
   font-weight: bold;
 
@@ -65,6 +67,7 @@ textarea {
 }
 
 .caption {
+  margin-top: 64px;
   font-size: 16px;
   height: 80%;
   border-bottom: none;

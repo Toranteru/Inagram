@@ -9,8 +9,8 @@ html, body {
 }
 
 img {
-  height: 100%;
-  width: auto;
+  height: auto;
+  width: 100%;
 }
 
 /* Top level classes for all components */
