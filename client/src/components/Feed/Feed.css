@@ -1,5 +1,5 @@
-.post-container {
-  margin: 50px;
+#feed {
+  height: 100%;
 }
 
 .post {
@@ -9,6 +9,8 @@
   border: 1px solid gray;
   overflow: hidden;
   border-radius: 12px;
+
+  cursor: pointer;
 }
 
 .post-title-container {
@@ -70,4 +72,16 @@
 .post-image {
   height: 100%;
   width: auto;
+}
+
+@media (min-width: 300px) {
+  .post-container {
+    padding: 40px;
+  }
+}
+
+@media (min-width: 1150px) {
+  .post-container {
+    padding: 0px;
+  }
 }

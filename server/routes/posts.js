@@ -57,11 +57,12 @@ connection.once('open', () => {
 // @desc Add a new post
 router.post('/submit', upload.single('image'), async (req, res) => {
   const { title, caption } = req.body;
-  const { filename } = req.file;
+  const { filename, id } = req.file;
   const newPost = new Post({
     title,
     caption,
-    filename
+    filename,
+    id
   });
 
   newPost.save()
@@ -90,7 +91,7 @@ router.get('/:filename', async (req, res) => {
     }
     return res.json(fileInfo);
   });
-})
+});
 
 // @route GET /image/:filename
 // @desc Display post image
@@ -113,6 +114,17 @@ router.get('/image/:filename', (req, res) => {
       })
     }
   });
+});
+
+router.delete('/:id', async (req, res) => {
+  let { id } = req.params;
+  const _id = new mongoose.Types.ObjectId(id);
+  await Promise.all([
+    Post.find({ id }).remove(),
+    gfsBucket.delete(_id)
+  ])
+  .then(() => res.json('File has been deleted!'))
+  .catch(err => res.status(400).json(`Error with message: ${err}`));
 })
 
 module.exports = router;
