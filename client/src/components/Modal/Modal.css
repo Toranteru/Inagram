@@ -2,7 +2,7 @@
   height: 100%;
   width: 100%;
 
-  position: absolute;
+  position: fixed;
   top: 0px;
   z-index: 20;
 }
@@ -17,6 +17,7 @@
 .modal-content {
   position: absolute;
   flex-direction: column;
+  overflow: hidden;
   height: 80vh;
   width: 50vw;
 

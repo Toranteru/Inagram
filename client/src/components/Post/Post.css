@@ -7,3 +7,7 @@
   cursor: pointer;
   color: rgb(100, 100, 100);
 }
+
+.feed-post-container {
+  position: relative;
+}

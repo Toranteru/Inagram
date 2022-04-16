@@ -70,7 +70,7 @@ export default function Posts() {
       </div>
       :
       <div className='flex center modal'>
-        <p>Upload photo and videos here</p>
+        <p style={{ padding: '0px 20px' }}>Upload photo here</p>
         <input 
           id="image"
           type="file"
